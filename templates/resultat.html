@@ -9,13 +9,16 @@
 
 <body>
     <h1>Resultat de l'operació</h1>
+    <br>
     <ul>
         {% if resultat %}
-        {% for r in resultat %}
-        <p>{{ r[0] }} = {{ r[1] }}</p>
-        {% endfor %}
+        <ul>
+            {% for r in resultat %}
+            <li>{{ r }}</li>
+            {% endfor %}
+        </ul>
         {% else %}
-        <p>No s'ha obtingut cap resultat.</p>
+        <p>No hi ha resultat.</p>
         {% endif %}
     </ul>
     <a href="/">Tornar al formulari</a>

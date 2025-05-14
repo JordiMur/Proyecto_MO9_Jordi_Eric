@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Traps</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<h1>Traps SNMP</h1>
+
+<form method="post">
+    <label for="from_datetime">Desde (timestamp completo):</label>
+    <input type="datetime-local" name="from_datetime" id="from_datetime">
+
+    <label for="to_datetime">Hasta (timestamp completo):</label>
+    <input type="datetime-local" name="to_datetime" id="to_datetime">
+
+    <button type="submit">Filtrar</button>
+</form>
+
+
+<table border="1">
+    <tr>
+        <th>Trap ID</th>
+        <th>Fecha</th>
+        <th>Transporte</th>
+    </tr>
+    {% for trap in traps %}
+    <tr>
+        <td><a href="{{ url_for('trap_detail', trap_id=trap.trap_id) }}">{{ trap.trap_id }}</a></td>
+        <td>{{ trap.date_time }}</td>
+        <td>{{ trap.transport }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<footer>
+    <div class="footer-content">
+        <nav class="footer-nav">
+            <a href="/">Inicio (Funciones SNMP)</a>
+        </nav>
+    </div>
+    <p class="footer-copy">© 2025 Eric G y Jordi Mur - SNMP Tools</p>
+</footer>

@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="ca">
+
 <head>
     <meta charset="UTF-8">
     <title>MIB Browser</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
+
 <body>
     <h1>MIB Browser (by: Eric G y Jordi Mur)</h1>
+
     <form action="/resultat" method="POST">
         <label>Agent IP:</label>
         <input type="text" name="agent" required><br>
-        
+
         <label>Versió SNMP:</label>
         <select name="version">
             <option value="0">v1</option>
@@ -20,8 +23,18 @@
         <label>Community:</label>
         <input type="text" name="community" required><br>
 
-        <label>OID:</label>
-        <input type="text" name="oid" required><br>
+        <!-- Desplegable de OIDs -->
+        <label>Selecciona un OID (base de dades):</label>
+        <select id="oid_select">
+            <option disabled selected value> -- selecciona un OID -- </option>
+            {% for item in oids %}
+                <option value="{{ item.oid }}">{{ item.traduccio }} ({{ item.oid }})</option>
+            {% endfor %}
+        </select><br>
+
+        <!-- Campo de texto editable para el OID -->
+        <label>OID (editable):</label>
+        <input type="text" name="oid" id="oid_input" required><br>
 
         <label>Operació:</label>
         <select name="operacio">
@@ -36,5 +49,21 @@
 
         <button type="submit">Enviar</button>
     </form>
+
+    <footer>
+        <div class="footer-content">
+            <nav class="footer-nav">
+                <a href="/trap">Ver Traps</a>
+            </nav>
+        </div>
+        <p class="footer-copy">© 2025 Eric G y Jordi Mur - SNMP Tools</p>
+    </footer>
+
+    <script>
+        document.getElementById("oid_select").addEventListener("change", function () {
+            document.getElementById("oid_input").value = this.value;
+        });
+    </script>
 </body>
+
 </html>
