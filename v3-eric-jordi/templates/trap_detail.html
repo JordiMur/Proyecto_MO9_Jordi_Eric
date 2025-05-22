@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+    <meta charset="UTF-8">
+    <title>trap_detail</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<h1>Detalles del Trap {{ trap_id }}</h1>
+
+<table border="1">
+    <tr>
+        <th>OID</th>
+        <th>Tipo</th>
+        <th>Valor</th>
+    </tr>
+    {% for vb in varbinds %}
+    <tr>
+        <td>{{ vb.oid }}</td>
+        <td>{{ vb.type }}</td>
+        <td>{{ vb.value }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<a href="{{ url_for('traps') }}">← Volver a traps</a>

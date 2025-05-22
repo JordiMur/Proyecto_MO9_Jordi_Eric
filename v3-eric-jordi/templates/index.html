@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+    <meta charset="UTF-8">
+    <title>MIB Browser</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <h1>MIB Browser (by: Eric G y Jordi Mur)</h1>
+
+    <form action="/resultat" method="POST">
+        <label>Agent IP:</label>
+        <input type="text" name="agent" required><br>
+
+        <label>Versió SNMP:</label>
+        <select name="version" id="version_select">
+            <option value="v1">v1</option>
+            <option value="v2c">v2c</option>
+            <option value="v3">v3</option>
+        </select><br>
+
+        <!-- Campo para v1/v2c -->
+        <div id="community_container">
+            <label>Community:</label>
+            <input type="text" name="community"><br>
+        </div>
+
+        <!-- Campos específicos para SNMPv3 -->
+        <div id="v3_fields" style="display:none;">
+            <label>Username:</label>
+            <input type="text" name="username"><br>
+            <label>Modo SNMPv3:</label>
+            <select name="v3_mode" id="v3_mode_select">
+                <option value="noauth">Sin autenticación</option>
+                <option value="auth">Autenticación sin privacidad</option>
+                <option value="priv">Autenticación con privacidad</option>
+            </select><br>
+            <div id="auth_fields" style="display:none;">
+                <label>Password de autenticación:</label>
+                <input type="password" name="auth_password"><br>
+            </div>
+            <div id="priv_fields" style="display:none;">
+                <label>Password de privacidad:</label>
+                <input type="password" name="priv_password"><br>
+            </div>
+            <div id="encrypt_fields" style="display:none;">
+                <label>Método de encriptación:</label>
+                <select name="encryption_method">
+                    <option value="des">DES</option>
+                    <option value="aes">AES</option>
+                </select><br>
+            </div>
+        </div>
+
+        <!-- Resto del formulario -->
+        <!-- Desplegable de OIDs -->
+        <label>Selecciona un OID (base de dades):</label>
+        <select id="oid_select">
+            <option disabled selected value> -- selecciona un OID -- </option>
+            {% for item in oids %}
+                <option value="{{ item.oid }}">{{ item.traduccio }} ({{ item.oid }})</option>
+            {% endfor %}
+        </select><br>
+
+        <!-- Campo de texto editable para el OID -->
+        <label>OID (editable):</label>
+        <input type="text" name="oid" id="oid_input" required><br>
+
+        <label>Operació:</label>
+        <select name="operacio">
+            <option value="get">SNMPGET</option>
+            <option value="next">SNMPNEXT</option>
+            <option value="bulkwalk">SNMPBULKWALK</option>
+            <option value="set">SNMPSET</option>
+        </select><br>
+
+        <label>Valor (només per SNMPSET):</label>
+        <input type="text" name="new_value"><br>
+
+        <button type="submit">Enviar</button>
+    </form>
+
+    <footer>
+        <div class="footer-content">
+            <nav class="footer-nav">
+                <a href="/trap">Ver Traps</a>
+            </nav>
+        </div>
+        <p class="footer-copy">© 2025 Eric G y Jordi Mur - SNMP Tools</p>
+    </footer>
+
+    <!-- Se utiliza el script externo -->
+    <script src="{{ url_for('static', filename='js/snmp_form.js') }}"></script>
+</body>
+
+</html>

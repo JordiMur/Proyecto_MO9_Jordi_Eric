@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Resultat SNMP</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <h1>Resultat de l'operació</h1>
+    <br>
+    <ul>
+        {% if resultat %}
+        <ul>
+            {% for r in resultat %}
+            <li>{{ r }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No hi ha resultat.</p>
+        {% endif %}
+    </ul>
+    <a href="/">Tornar al formulari</a>
+</body>
+
+</html>
